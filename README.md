@@ -1,5 +1,4 @@
-# Gender-and-Age-Detection   <img alt="GitHub" src="https://img.shields.io/github/license/smahesh29/Gender-and-Age-Detection">
-
+# Gender-and-Age-Detection <img alt="GitHub" src="https://img.shields.io/github/license/smahesh29/Gender-and-Age-Detection">
 
 <h2>Objective :</h2>
 <p>To build a gender and age detector that can approximately guess the gender and age of the person (face) in a picture or through webcam.</p>
@@ -41,19 +40,22 @@
   <li>Open your Command Prompt or Terminal and change directory to the folder where all the files are present.</li>
   <li><b>Detecting Gender and Age of face in Image</b> Use Command :</li>
   
-      python detect.py --image <image_name>
+      python AgeGenderDetecter --image your_image.jpg
+
 </ul>
   <p><b>Note: </b>The Image should be present in same folder where all the files are present</p> 
 <ul>
   <li><b>Detecting Gender and Age of face through webcam</b> Use Command :</li>
   
-      python detect.py
+      python AgeGenderDetecter.py
+      
 </ul>
 <ul>
   <li>Press <b>Ctrl + C</b> to stop the program execution.</li>
 </ul>
 
 # Working:
+
 [![Watch the video](https://img.youtube.com/vi/ReeccRD21EU/0.jpg)](https://youtu.be/ReeccRD21EU)
 
 <h2>Examples :</h2>
@@ -62,42 +64,41 @@
     >python detect.py --image girl1.jpg
     Gender: Female
     Age: 25-32 years
-    
+
 <img src="Example/Detecting age and gender girl1.png">
 
     >python detect.py --image girl2.jpg
     Gender: Female
     Age: 8-12 years
-    
+
 <img src="Example/Detecting age and gender girl2.png">
 
     >python detect.py --image kid1.jpg
     Gender: Male
-    Age: 4-6 years    
-    
+    Age: 4-6 years
+
 <img src="Example/Detecting age and gender kid1.png">
 
     >python detect.py --image kid2.jpg
     Gender: Female
-    Age: 4-6 years  
-    
+    Age: 4-6 years
+
 <img src="Example/Detecting age and gender kid2.png">
 
     >python detect.py --image man1.jpg
     Gender: Male
     Age: 38-43 years
-    
+
 <img src="Example/Detecting age and gender man1.png">
 
     >python detect.py --image man2.jpg
     Gender: Male
     Age: 25-32 years
-    
+
 <img src="Example/Detecting age and gender man2.png">
 
     >python detect.py --image woman1.jpg
     Gender: Female
     Age: 38-43 years
-    
+
 <img src="Example/Detecting age and gender woman1.png">
-              
