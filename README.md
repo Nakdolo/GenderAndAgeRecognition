@@ -40,14 +40,14 @@
   <li>Open your Command Prompt or Terminal and change directory to the folder where all the files are present.</li>
   <li><b>Detecting Gender and Age of face in Image</b> Use Command :</li>
   
-      python AgeGenderDetecter --image your_image.jpg
+      python detect --image your_image.jpg
 
 </ul>
   <p><b>Note: </b>The Image should be present in same folder where all the files are present</p> 
 <ul>
   <li><b>Detecting Gender and Age of face through webcam</b> Use Command :</li>
   
-      python AgeGenderDetecter.py
+      python detect.py
       
 </ul>
 <ul>

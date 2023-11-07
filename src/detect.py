@@ -3,8 +3,6 @@ import argparse
 import time
 import sys
 
-
-
 class AgeGenderDetector:
     def __init__(self, camera_arg=None):
         self.camera_id = self.get_camera_source(camera_arg)
