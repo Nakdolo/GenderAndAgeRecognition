@@ -3,6 +3,8 @@ import argparse
 import time
 import sys
 
+
+
 class AgeGenderDetector:
     def __init__(self, camera_arg=None):
         self.camera_id = self.get_camera_source(camera_arg)
@@ -59,7 +61,7 @@ class AgeGenderDetector:
     def detect_age_gender(self, frame, face_boxes, padding=20):
         for face_box in face_boxes:
             face = frame[max(0, face_box[1] - padding): min(face_box[3] + padding, frame.shape[0] - 1),
-                    max(0, face_box[0] - padding): min(face_box[2] + padding, frame.shape[1] - 1)]
+                   max(0, face_box[0] - padding): min(face_box[2] + padding, frame.shape[1] - 1)]
 
             blob = cv2.dnn.blobFromImage(face, 1.0, (227, 227), self.MODEL_MEAN_VALUES, swapRB=False)
 
@@ -71,15 +73,15 @@ class AgeGenderDetector:
             age_preds = self.ageNet.forward()
             age = self.ageList[age_preds[0].argmax()][1:-1]
 
-            color = (0, 255, 0)  # Green color for the rectangle
+            color = (0, 255, 0)  # Green color
             line_thickness = 2
             font = cv2.FONT_HERSHEY_DUPLEX
-            font_scale = 0.8
-            font_color = (0, 255, 255)  # Yellow color for the words "Gender" and "Age"
+            font_scale = 0.7
+            font_color = (255, 255, 255)  # White color
 
             cv2.rectangle(frame, (face_box[0], face_box[1]), (face_box[2], face_box[3]), color, line_thickness)
-            cv2.putText(frame, f'Gender: {gender}', (face_box[0], face_box[1] - 10), font, font_scale, font_color, line_thickness)
-            cv2.putText(frame, f'Age: {age} years', (face_box[0], face_box[1] + 30), font, font_scale, font_color, line_thickness)
+            cv2.putText(frame, f'Gender: {gender}, Age: {age} years', (face_box[0], face_box[1] - 10), font, font_scale,
+                        font_color, line_thickness)
 
     def run(self, image_path=None):
         video = cv2.VideoCapture(image_path if image_path else self.camera_id)
@@ -88,7 +90,6 @@ class AgeGenderDetector:
             has_frame, frame = video.read()
             start_time = time.time()
             if not has_frame:
-                # Work around the infinite loop issue with the cv2 UI
                 while True:
                     key = cv2.waitKey(100)
                     if key > 0:
@@ -103,14 +104,13 @@ class AgeGenderDetector:
                 print("No face detected")
                 continue
 
-            gender, age = self.detect_age_gender(frame, face_boxes, padding)
-            print(f'Gender: {gender}, Age: {age} years')
+            self.detect_age_gender(frame, face_boxes, padding)
 
             end_time = time.time()
             total_time = end_time - start_time
             print(f"The process took {total_time * 1000} ms")
 
-            cv2.imshow("test", result_img)
+            cv2.imshow("test", frame)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
