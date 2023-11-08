@@ -2,6 +2,7 @@ import cv2
 import argparse
 import time
 import sys
+import numpy as np
 
 class AgeGenderDetector:
     def __init__(self, camera_arg=None):
@@ -25,6 +26,24 @@ class AgeGenderDetector:
         self.ageNet = cv2.dnn.readNet(self.ageModel, self.ageProto)
         self.genderNet = cv2.dnn.readNet(self.genderModel, self.genderProto)
 
+        self.processing = False  # Flag to indicate whether processing is active
+
+        # Create a window to display buttons
+        cv2.namedWindow("Buttons")
+        cv2.setMouseCallback("Buttons", self.button_click)
+
+        # Define button coordinates and labels
+        self.start_button = (10, 10, 100, 50)  # (x, y, width, height)
+        self.exit_button = (130, 10, 100, 50)  # (x, y, width, height)
+
+        # Create button labels
+        cv2.rectangle("Buttons", (self.start_button[0], self.start_button[1]),
+                      (self.start_button[0] + self.start_button[2], self.start_button[1] + self.start_button[3]), (0, 255, 0), -1)
+        cv2.rectangle("Buttons", (self.exit_button[0], self.exit_button[1]),
+                      (self.exit_button[0] + self.exit_button[2], self.exit_button[1] + self.exit_button[3]), (0, 0, 255), -1)
+        cv2.putText("Buttons", "Start", (25, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        cv2.putText("Buttons", "Exit", (145, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+
     def get_camera_source(self, camera_arg):
         if camera_arg is not None:
             return int(camera_arg)
@@ -35,6 +54,14 @@ class AgeGenderDetector:
                     video.release()
                     return camera_id
             return None
+
+    def button_click(self, event, x, y, flags, param):
+        if event == cv2.EVENT_LBUTTONDOWN:
+            if self.processing:
+                if 10 <= x <= 110 and 10 <= y <= 60:
+                    self.processing = not self.processing
+            elif 130 <= x <= 230 and 10 <= y <= 60:
+                cv2.destroyAllWindows()
 
     def highlight_face(self, frame, conf_threshold=0.7):
         frame_opencv_dnn = frame.copy()
